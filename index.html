@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery Facebook wall feed</title>
+</head>
+<body>
+<div id="wall"></div>
+
+<!-- jQuery templates. Not rendered by the browser. Notice the type attributes. Reused code from http://bit.ly/h7qwfl -->
+
+<script id="headingTpl" type="text/x-jquery-tmpl">
+    <h1>${name}<span> on Facebook</span></h1>
+</script>
+
+<script id="feedTpl" type="text/x-jquery-tmpl">
+    <li>
+        <img src="${from.picture}" class="avatar"/>
+
+        <div class="status">
+            <h2><a href="http://www.facebook.com/profile.php?id=${from.id}" target="_blank">${from.name}</a></h2>
+
+            <p class="message">{{html message}}</p>
+            <div class="attachment">
+                {{if picture}}
+                <a href="${link}" target="_blank"><img class="picture" src="${picture}"/></a>
+                {{/if}}
+                {{if type == "link" }}
+                <div class="attachment-data">
+                    <p class="name"><a href="${link}" target="_blank">${name}</a></p>
+
+                    <p class="caption">${caption}</p>
+
+                    <p class="description">${description}</p>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+
+        <p class="meta">
+            ${created_time} -
+            {{if comments}}
+            ${comments.count} Comment{{if comments.count>1}}s{{/if}}
+            {{else}}
+            0 Comments
+            {{/if}} -
+            {{if likes}}
+            ${likes.count} Like{{if likes.count>1}}s{{/if}}
+            {{else}}
+            0 Likes
+            {{/if}}
+        </p>
+
+    </li>
+</script>
+<script src="js/jquery-1.9.0.min.js"></script>
+<script src="js/jquery.tmpl.min.js"></script>
+<script src="js/fb-feed.js"></script>
+<script>
+    $(function () {
+        $('#wall').fbfeed({
+            id: 'PAGE_ID',
+            access_token: 'ACCESS_TOKEN'
+        });
+    })
+</script>
+</body>
+</html>
