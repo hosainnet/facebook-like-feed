@@ -1,60 +1,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>jQuery Facebook wall feed</title>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/fbfeed.css"/>
 </head>
 <body>
 <div id="wall"></div>
 
-<!-- jQuery templates. Not rendered by the browser. Notice the type attributes. Reused code from http://bit.ly/h7qwfl -->
+<!-- jQuery templates. Not rendered by the browser. Notice the type attributes -->
 
 <script id="headingTpl" type="text/x-jquery-tmpl">
-    <h1>${name}<span> on Facebook</span></h1>
+    <div class='header'>
+        <div class="avatar">
+            <a href="${link}"><img src="${picture}"/></a>
+        </div>
+        <div class="itemContainer">
+            <a href="${link}">${name}</a>
+        </div>
+    </div>
+    <div class="divder"></div>
 </script>
 
 <script id="feedTpl" type="text/x-jquery-tmpl">
-    <li>
-        <img src="${from.picture}" class="avatar"/>
+    <li class="post">
 
-        <div class="status">
-            <h2><a href="http://www.facebook.com/profile.php?id=${from.id}" target="_blank">${from.name}</a></h2>
-
-            <p class="message">{{html message}}</p>
-            <div class="attachment">
-                {{if picture}}
-                <a href="${link}" target="_blank"><img class="picture" src="${picture}"/></a>
-                {{/if}}
-                {{if type == "link" }}
-                <div class="attachment-data">
-                    <p class="name"><a href="${link}" target="_blank">${name}</a></p>
-
-                    <p class="caption">${caption}</p>
-
-                    <p class="description">${description}</p>
-                </div>
-                {{/if}}
-            </div>
+        <div class="avatar">
+            <img src="${from.picture}"/>
         </div>
 
-        <p class="meta">
-            ${created_time} -
-            {{if comments}}
-            ${comments.count} Comment{{if comments.count>1}}s{{/if}}
-            {{else}}
-            0 Comments
-            {{/if}} -
-            {{if likes}}
-            ${likes.count} Like{{if likes.count>1}}s{{/if}}
-            {{else}}
-            0 Likes
-            {{/if}}
-        </p>
+        <div class="itemContainer">
+            <div class="status">
+                <a href="http://www.facebook.com/profile.php?id=${from.id}" target="_blank">${from.name}</a>
 
+                <p class="message">{{html message}}</p>
+
+                <div class="attachment">
+                    {{if picture}}
+                    <a href="${link}" target="_blank"><img class="picture" src="${picture}"/></a>
+                    {{/if}}
+                    {{if type == "link" }}
+                    <div class="attachment-data">
+                        <p class="name"><a href="${link}" target="_blank">${name}</a></p>
+
+                        <p class="caption">${caption}</p>
+
+                        <p class="description">${description}</p>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+
+            <p class="meta">
+                <a href="${link}">${created_time}</a> -
+                {{if comments}}
+                ${comments.count} Comment{{if comments.count>1}}s{{/if}}
+                {{else}}
+                0 Comments
+                {{/if}} -
+                {{if likes}}
+                ${likes.count} Like{{if likes.count>1}}s{{/if}}
+                {{else}}
+                0 Likes
+                {{/if}}
+            </p>
+        </div>
     </li>
 </script>
 <script src="js/jquery-1.9.0.min.js"></script>
 <script src="js/jquery.tmpl.min.js"></script>
-<script src="js/fb-feed.js"></script>
+<script src="js/fbfeed.js"></script>
 <script>
     $(function () {
         $('#wall').fbfeed({

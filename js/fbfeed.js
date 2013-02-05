@@ -9,11 +9,11 @@ jQuery.fn.fbfeed = function (options) {
         throw new Error('You need to provide an user/page id!');
     }
     //Facebook Graph API URLs
-    var graphUSER = 'http://graph.facebook.com/' + options.id + '/?fields=name,picture&callback=?',
+    var graphUSER = 'http://graph.facebook.com/' + options.id + '/?callback=?',
         graphPOSTS = 'https://graph.facebook.com/'+options.id+'/feed/?access_token='+
             options.access_token+'&callback=?&date_format=U';
     var graphPHOTO = 'https://graph.facebook.com/' + options.id + '/picture?access_token=' + options.access_token
-    var wall = this;
+    var feed = this;
 
     $.when($.getJSON(graphUSER), $.getJSON(graphPOSTS)).done(function (user, posts) {
 
@@ -21,7 +21,7 @@ jQuery.fn.fbfeed = function (options) {
             user: user[0],
             posts: []
         };
-
+        fb.user.picture = graphPHOTO;
         $.each(posts[0].data, function () {
 
             this.from.picture = graphPHOTO;
@@ -31,9 +31,10 @@ jQuery.fn.fbfeed = function (options) {
             fb.posts.push(this);
         });
 
+        $(feed).addClass('fbfeed')
         // Rendering the templates:
-        $('#headingTpl').tmpl(fb.user).appendTo(wall);
-        var ul = $('<ul>').appendTo(wall);
+        $('#headingTpl').tmpl(fb.user).appendTo(feed);
+        var ul = $('<ul>').appendTo(feed);
         $('#feedTpl').tmpl(fb.posts).appendTo(ul);
     });
 
