@@ -8,6 +8,12 @@ jQuery.fn.fbfeed = function (options) {
     if (!options.id) {
         throw new Error('You need to provide an user/page id!');
     }
+
+    options = $.extend({
+        width: 400,
+        height: 700
+    },options);
+
     //Facebook Graph API URLs
     var graphUSER = 'http://graph.facebook.com/' + options.id + '/?callback=?',
         graphPOSTS = 'https://graph.facebook.com/'+options.id+'/feed/?access_token='+
@@ -32,6 +38,8 @@ jQuery.fn.fbfeed = function (options) {
         });
 
         $(feed).addClass('fbfeed')
+        $(feed).css('height', options.height)
+        $(feed).css('width', options.width)
         // Rendering the templates:
         $('#headingTpl').tmpl(fb.user).appendTo(feed);
         var ul = $('<ul>').appendTo(feed);

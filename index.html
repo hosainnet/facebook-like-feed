@@ -51,7 +51,7 @@
             </div>
 
             <p class="meta">
-                <a href="${link}">${created_time}</a> -
+                <a href="${link}" target="_blank">${created_time}</a> -
                 {{if comments}}
                 ${comments.count} Comment{{if comments.count>1}}s{{/if}}
                 {{else}}
@@ -73,7 +73,9 @@
     $(function () {
         $('#wall').fbfeed({
             //id: 'PAGE_ID',
-            //access_token: 'ACCESS_TOKEN'
+            //access_token: 'ACCESS_TOKEN',
+            //width: (optional).
+            //height: (optional)
         });
     })
 </script>
