@@ -16,7 +16,7 @@ jQuery.fn.fbfeed = function (options) {
 
     //Facebook Graph API URLs
     var graphUSER = 'http://graph.facebook.com/' + options.id + '/?callback=?',
-        graphPOSTS = 'https://graph.facebook.com/'+options.id+'/feed/?access_token='+
+        graphPOSTS = 'https://graph.facebook.com/'+options.id+'/posts/?access_token='+
             options.access_token+'&callback=?&date_format=U';
     var graphPHOTO = 'https://graph.facebook.com/' + options.id + '/picture?access_token=' + options.access_token
     var feed = this;
